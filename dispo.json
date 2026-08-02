@@ -1,7 +1,7 @@
 {
-  "actif": true,
-  "plats": "Test",
-  "avant": "20h",
+  "actif": false,
+  "plats": "",
+  "avant": "",
   "note": "",
-  "tel": "06 03 61 91 36"
+  "tel": ""
 }
