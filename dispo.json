@@ -1,7 +1,8 @@
 {
-  "actif": true,
+  "actif": false,
   "plats": "Osso-buco de dinde à la milanaise",
   "montant": 14.9,
+  "stock": 0,
   "avant": "19h",
   "note": "",
   "tel": "06 03 61 91 36",
