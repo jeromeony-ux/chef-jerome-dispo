@@ -1,8 +1,8 @@
 {
-  "actif": false,
-  "plats": "Osso-buco de dinde à la milanaise",
-  "montant": 14.9,
-  "stock": 0,
+  "actif": true,
+  "plats": "Tiramisu aux pépites de chocolat",
+  "montant": 5.9,
+  "stock": 5,
   "avant": "19h",
   "note": "",
   "tel": "06 03 61 91 36",
