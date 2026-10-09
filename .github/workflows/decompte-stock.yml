@@ -1,0 +1,45 @@
+name: Décompte stock dispo express
+
+# Déclenché à distance par Make (à la réception d'une commande) via l'API
+# "repository_dispatch" avec event_type = decrement-stock et, en payload,
+# la liste des plats commandés : client_payload.plats = [{nomPlat, quantite, dispo}]
+on:
+  repository_dispatch:
+    types: [decrement-stock]
+
+permissions:
+  contents: write
+
+jobs:
+  decompte:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Décompte + commit (recalcul sur la dernière version, 5 tentatives)
+        env:
+          PLATS_JSON: ${{ toJSON(github.event.client_payload.plats) }}
+        run: |
+          git config user.name "chef-jerome-bot"
+          git config user.email "actions@users.noreply.github.com"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/decrement-stock.js
+            if git diff --quiet -- dispo.json; then
+              echo "Aucun changement de stock — rien à pousser."
+              exit 0
+            fi
+            git add dispo.json
+            git commit -m "Décompte stock dispo express [skip ci]"
+            if git push origin HEAD:main; then
+              echo "Stock mis à jour (tentative $i)."
+              exit 0
+            fi
+            echo "Push rejeté (le dépôt a bougé), nouvelle tentative…"
+            sleep 2
+          done
+          echo "Échec après 5 tentatives."
+          exit 1
