@@ -2,7 +2,8 @@ name: Décompte stock dispo express
 
 # Déclenché à distance par Make (à la réception d'une commande) via l'API
 # "repository_dispatch" avec event_type = decrement-stock et, en payload,
-# la liste des plats commandés : client_payload.plats = [{nomPlat, quantite, dispo}]
+# la liste des plats commandés encodée en base64 : client_payload.platsB64
+# (base64 d'un tableau JSON [{nomPlat, quantite, dispo}]).
 on:
   repository_dispatch:
     types: [decrement-stock]
@@ -20,7 +21,7 @@ jobs:
 
       - name: Décompte + commit (recalcul sur la dernière version, 5 tentatives)
         env:
-          PLATS_JSON: ${{ toJSON(github.event.client_payload.plats) }}
+          PLATS_B64: ${{ github.event.client_payload.platsB64 }}
         run: |
           git config user.name "chef-jerome-bot"
           git config user.email "actions@users.noreply.github.com"

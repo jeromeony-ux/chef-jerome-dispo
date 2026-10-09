@@ -16,11 +16,17 @@ const FICHIER = path.join(process.cwd(), "dispo.json");
 function norm(s){ return String(s == null ? "" : s).trim(); }
 
 function main(){
+  // Entrée : PLATS_B64 (base64 d'un tableau JSON) en priorité, sinon PLATS_JSON (tableau JSON brut).
+  let raw = process.env.PLATS_JSON || "";
+  if (!raw && process.env.PLATS_B64) {
+    try { raw = Buffer.from(process.env.PLATS_B64, "base64").toString("utf8"); }
+    catch (e) { console.error("PLATS_B64 illisible :", e.message); process.exit(0); }
+  }
   let lignes;
   try {
-    lignes = JSON.parse(process.env.PLATS_JSON || "[]");
+    lignes = JSON.parse(raw || "[]");
   } catch (e) {
-    console.error("PLATS_JSON illisible :", e.message);
+    console.error("Entrée illisible :", e.message);
     process.exit(0); // on ne casse rien
   }
   if (!Array.isArray(lignes)) lignes = [];
