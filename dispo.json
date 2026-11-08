@@ -5,27 +5,18 @@
     {
       "nom": "Plateau Raclette",
       "montant": 14,
+      "stock": 2,
+      "avant": "",
       "note": "Raclette suisse au lait cru & charcuterie — 200 g de raclette + 150 g de charcuterie par personne. Commander avant 17 h 30",
-      "stock": 3,
       "image": "img/dispo/plateau-raclette.webp"
     },
     {
       "nom": "Corolles de tête de moine",
       "montant": 2,
+      "stock": null,
+      "avant": "",
       "note": "Par personne, préparées à la girolle (~25 g). En complément du plateau",
       "image": "img/dispo/corolles-tete-de-moine.webp"
-    },
-    {
-      "nom": "Saint-Nectaire fermier — 200 g",
-      "montant": 5,
-      "note": "Portion à partager, en complément du plateau",
-      "image": "img/dispo/saint-nectaire.webp"
-    },
-    {
-      "nom": "Saint Albray — 200 g",
-      "montant": 4,
-      "note": "Portion à partager, en complément du plateau",
-      "image": "img/dispo/saint-albray.webp"
     }
   ]
 }
